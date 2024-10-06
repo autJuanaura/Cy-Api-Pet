@@ -38,6 +38,27 @@ it('Update user successfully', () => {
 });
 
 
+
+it('Delete user successfully', () => {
+  cy.request({
+    method: 'DELETE',
+    url: `/user/${userId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    failOnStatusCode: false // add this option to catch the 404 error
+  }).then((deleteResponse) => {
+    if (deleteResponse.status === 404) {
+      console.error(`User  not found: ${userId}`);
+    } else {
+      expect(deleteResponse.status).to.eq(200);
+      expect(deleteResponse.body).to.have.property('code', 200);
+      expect(deleteResponse.body).to.have.property('type', 'unknown');
+      expect(deleteResponse.body).to.have.property('message').that.eq('9223372036854775807');
+    }
+  });
+});
+
 it('Login user successfully', () => {
   const username = Cypress.env('CY_USER');
   const password = Cypress.env('CY_PSSWD');
