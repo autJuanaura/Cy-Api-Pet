@@ -1,0 +1,8 @@
+{
+    "id": 0,
+    "username": "updated-username",
+    "firstName": "updated-first-name",
+    "lastName": "updated-last-name",
+    "email": "updated-email@example.com",
+    "phone": "updated-phone"
+  }
