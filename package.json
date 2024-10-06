@@ -1,0 +1,19 @@
+{
+  "name": "cy-api-pet",
+  "version": "1.0.0",
+  "description": "Hello, and welcome to my Github page! I created this repo to demonstrate simple examples of API testing using Cypress. These tests are based on the swagger documentation for the demo site called Petstore: https://petstore.swagger.io/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MashaAUT"
+  },
+  "author": "MashaAUT",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.15.0",
+    "mocha": "^10.7.3"
+  }
+}
