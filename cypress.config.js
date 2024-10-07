@@ -13,8 +13,8 @@ module.exports = defineConfig({
         html: true,
         json: true,
       },
-      junitReporterOptions: {
-        mochaFile: 'cypress/reports/results.xml',
+      junit: {
+        output: 'cypress/reports/results.xml',
       },
     },
     setupNodeEvents(on, config) {

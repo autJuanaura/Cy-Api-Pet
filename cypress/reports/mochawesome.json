@@ -1,0 +1,153 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 4,
+    "passes": 2,
+    "pending": 0,
+    "failures": 2,
+    "start": "2024-10-07T02:25:07.674Z",
+    "end": "2024-10-07T02:25:09.802Z",
+    "duration": 2128,
+    "testsRegistered": 4,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9a04b0ed-78d8-41c5-bf18-6013d53c5f66",
+      "title": "",
+      "fullFile": "cypress/e2e/pet-suite.cy.js",
+      "file": "cypress/e2e/pet-suite.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "Create pet successfully",
+          "fullTitle": "Create pet successfully",
+          "timedOut": null,
+          "duration": 577,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.fixture('pet.json').then(pet => {\n  cy.request({\n    method: 'POST',\n    url: '/pet',\n    body: pet,\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  }).then(response => {\n    expect(response.status).to.eq(200);\n    expect(response.body).to.have.property('id');\n    expect(response.body).to.have.property('category');\n    expect(response.body).to.have.property('name');\n    expect(response.body).to.have.property('photoUrls');\n    expect(response.body).to.have.property('tags');\n    expect(response.body).to.have.property('status');\n  });\n});",
+          "err": {},
+          "uuid": "c5bc64ca-7903-4204-80da-a00f0f5c5a83",
+          "parentUUID": "9a04b0ed-78d8-41c5-bf18-6013d53c5f66",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get pet by ID successfully",
+          "fullTitle": "Get pet by ID successfully",
+          "timedOut": null,
+          "duration": 626,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "cy.request({\n  method: 'GET',\n  url: `/pet/${petId}`,\n  headers: {\n    'Content-Type': 'application/json'\n  }\n}).then(getResponse => {\n  expect(getResponse.status).to.eq(200);\n  expect(getResponse.body).to.have.property('id');\n  expect(getResponse.body).to.have.property('category');\n  expect(getResponse.body).to.have.property('name');\n  expect(getResponse.body).to.have.property('photoUrls');\n  expect(getResponse.body).to.have.property('tags');\n  expect(getResponse.body).to.have.property('status');\n  expect(getResponse.body.name).to.eq(petName); // Check if the pet name matches\n});",
+          "err": {
+            "message": "CypressError: `cy.request()` failed on:\n\nhttps://petstore.swagger.io/v2/pet/9223372016900012000\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://petstore.swagger.io/v2/pet/9223372016900012000\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Content-Type\": \"application/json\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.15.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"date\": \"Mon, 07 Oct 2024 02:24:52 GMT\",\n  \"content-type\": \"application/json\",\n  \"transfer-encoding\": \"chunked\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-methods\": \"GET, POST, DELETE, PUT\",\n  \"access-control-allow-headers\": \"Content-Type, api_key, Authorization\",\n  \"server\": \"Jetty(9.2.9.v20150224)\"\n}\nBody: {\n  \"code\": 1,\n  \"type\": \"error\",\n  \"message\": \"Pet not found\"\n}\n\n\nhttps://on.cypress.io/request",
+            "estack": "CypressError: `cy.request()` failed on:\n\nhttps://petstore.swagger.io/v2/pet/9223372016900012000\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://petstore.swagger.io/v2/pet/9223372016900012000\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Content-Type\": \"application/json\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.15.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"date\": \"Mon, 07 Oct 2024 02:24:52 GMT\",\n  \"content-type\": \"application/json\",\n  \"transfer-encoding\": \"chunked\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-methods\": \"GET, POST, DELETE, PUT\",\n  \"access-control-allow-headers\": \"Content-Type, api_key, Authorization\",\n  \"server\": \"Jetty(9.2.9.v20150224)\"\n}\nBody: {\n  \"code\": 1,\n  \"type\": \"error\",\n  \"message\": \"Pet not found\"\n}\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:132919:72)\n    at tryCatcher (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1701:18)\n    at _drainQueueStep (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://cy-api-pet/./cypress/e2e/pet-suite.cy.js:42:5)",
+            "diff": null
+          },
+          "uuid": "785755fd-d21d-4581-b9c0-9baf40b696a3",
+          "parentUUID": "9a04b0ed-78d8-41c5-bf18-6013d53c5f66",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Update pet successfully",
+          "fullTitle": "Update pet successfully",
+          "timedOut": null,
+          "duration": 427,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "cy.fixture('update-pet.json').then(updatedPet => {\n  cy.request({\n    method: 'PATCH',\n    url: `/pet/${petId}`,\n    body: updatedPet,\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  }).then(updateResponse => {\n    expect(updateResponse.status).to.eq(200);\n    expect(updateResponse.body).to.have.property('id');\n    expect(updateResponse.body).to.have.property('category');\n    expect(updateResponse.body).to.have.property('name');\n    expect(updateResponse.body).to.have.property('photoUrls');\n    expect(updateResponse.body).to.have.property('tags');\n    expect(updateResponse.body).to.have.property('status');\n    expect(updateResponse.body.name).to.eq(updatedPet.name); // Check if the pet name matches\n  });\n});",
+          "err": {
+            "message": "CypressError: `cy.request()` failed on:\n\nhttps://petstore.swagger.io/v2/pet/9223372016900012000\n\nThe response we received from your web server was:\n\n  > 405: Method Not Allowed\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: PATCH\nURL: https://petstore.swagger.io/v2/pet/9223372016900012000\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Content-Type\": \"application/json\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.15.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-length\": 194\n}\nBody: {\"id\":0,\"category\":{\"id\":0,\"name\":\"string\"},\"name\":\"Buddy Updated\",\"photoUrls\":[\"https://example.com/buddy-updated.jpg\"],\"tags\":[{\"id\":1,\"name\":\"Golden Retriever Updated\"}],\"status\":\"available\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 405 - Method Not Allowed\nHeaders: {\n  \"date\": \"Mon, 07 Oct 2024 02:24:53 GMT\",\n  \"content-type\": \"application/xml\",\n  \"content-length\": \"102\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-methods\": \"GET, POST, DELETE, PUT\",\n  \"access-control-allow-headers\": \"Content-Type, api_key, Authorization\",\n  \"server\": \"Jetty(9.2.9.v20150224)\"\n}\nBody: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><apiResponse><type>unknown</type></apiResponse>\n\n\nhttps://on.cypress.io/request",
+            "estack": "CypressError: `cy.request()` failed on:\n\nhttps://petstore.swagger.io/v2/pet/9223372016900012000\n\nThe response we received from your web server was:\n\n  > 405: Method Not Allowed\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: PATCH\nURL: https://petstore.swagger.io/v2/pet/9223372016900012000\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Content-Type\": \"application/json\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.15.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-length\": 194\n}\nBody: {\"id\":0,\"category\":{\"id\":0,\"name\":\"string\"},\"name\":\"Buddy Updated\",\"photoUrls\":[\"https://example.com/buddy-updated.jpg\"],\"tags\":[{\"id\":1,\"name\":\"Golden Retriever Updated\"}],\"status\":\"available\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 405 - Method Not Allowed\nHeaders: {\n  \"date\": \"Mon, 07 Oct 2024 02:24:53 GMT\",\n  \"content-type\": \"application/xml\",\n  \"content-length\": \"102\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-methods\": \"GET, POST, DELETE, PUT\",\n  \"access-control-allow-headers\": \"Content-Type, api_key, Authorization\",\n  \"server\": \"Jetty(9.2.9.v20150224)\"\n}\nBody: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><apiResponse><type>unknown</type></apiResponse>\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:132919:72)\n    at tryCatcher (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:1701:18)\n    at _drainQueueStep (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (https://petstore.swagger.io/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://cy-api-pet/./cypress/e2e/pet-suite.cy.js:62:7)",
+            "diff": null
+          },
+          "uuid": "4788dc59-2389-4da3-9938-1b80b864c881",
+          "parentUUID": "9a04b0ed-78d8-41c5-bf18-6013d53c5f66",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Delete pet successfully",
+          "fullTitle": "Delete pet successfully",
+          "timedOut": null,
+          "duration": 187,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.request({\n  method: 'DELETE',\n  url: `/pet/${petId}`,\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  failOnStatusCode: false // add this option to catch the 404 error\n}).then(deleteResponse => {\n  if (deleteResponse.status === 404) {\n    console.error(`Pet not found: ${petId}`);\n  } else {\n    expect(deleteResponse.status).to.eq(200);\n    expect(deleteResponse.body).to.be.empty; // Check if the response body is empty\n  }\n});",
+          "err": {},
+          "uuid": "c473a418-7698-4b43-80d6-a29a80571ecd",
+          "parentUUID": "9a04b0ed-78d8-41c5-bf18-6013d53c5f66",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [],
+      "passes": [
+        "c5bc64ca-7903-4204-80da-a00f0f5c5a83",
+        "c473a418-7698-4b43-80d6-a29a80571ecd"
+      ],
+      "failures": [
+        "785755fd-d21d-4581-b9c0-9baf40b696a3",
+        "4788dc59-2389-4da3-9938-1b80b864c881"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 1817,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports",
+        "overwrite": true,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

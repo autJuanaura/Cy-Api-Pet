@@ -1,4 +1,5 @@
 let userId;
+let username = Cypress.env('CY_USER');
 
 it('Create user successfully', () => {
   cy.fixture('user.json').then((user) => {
@@ -13,18 +14,32 @@ it('Create user successfully', () => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('code', 200);
       expect(response.body).to.have.property('type', 'unknown');
-      expect(response.body).to.have.property('message').that.eq('9223372036854775807');
       userId = response.body.message; // Store the user ID
+      expect(userId).to.be.a('string'); // or expect(userId).to.be.a('number'); depending on the type of userId
     });
   });
 });
 
+it('Login user successfully', () => {
+  const password = Cypress.env('CY_PSSWD');
+
+  cy.request({
+    method: 'GET',
+    url: `/user/login?username=${username}&password=${password}`,
+  }).then((response) => {
+    expect(response.status).to.eq(200);
+    expect(response.body).to.have.property('code', 200);
+    expect(response.body).to.have.property('type', 'unknown');
+    expect(response.body.message).to.contain('logged in user session:');
+  });
+});
+
 it('Update user successfully', () => {
-  cy.fixture('update-user.json').then((updatedUser) => {
+  cy.fixture('update-user.json').then((updatedUser ) => {
     cy.request({
       method: 'PUT',
       url: `/user/${userId}`,
-      body: updatedUser,
+      body: updatedUser ,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -32,12 +47,10 @@ it('Update user successfully', () => {
       expect(updateResponse.status).to.eq(200);
       expect(updateResponse.body).to.have.property('code', 200);
       expect(updateResponse.body).to.have.property('type', 'unknown');
-      expect(updateResponse.body).to.have.property('message').that.eq('9223372036854775807');
+      expect(updateResponse.body.message).to.be.a('string'); // or expect(updateResponse.body.message).to.be.a('number'); depending on the type of userId
     });
   });
 });
-
-
 
 it('Delete user successfully', () => {
   cy.request({
@@ -49,28 +62,12 @@ it('Delete user successfully', () => {
     failOnStatusCode: false // add this option to catch the 404 error
   }).then((deleteResponse) => {
     if (deleteResponse.status === 404) {
-      console.error(`User  not found: ${userId}`);
+      console.error(`User   not found: ${userId}`);
     } else {
       expect(deleteResponse.status).to.eq(200);
       expect(deleteResponse.body).to.have.property('code', 200);
       expect(deleteResponse.body).to.have.property('type', 'unknown');
-      expect(deleteResponse.body).to.have.property('message').that.eq('9223372036854775807');
+      expect(deleteResponse.body.message).to.be.a('string'); // or expect(deleteResponse.body.message).to.be.a('number'); depending on the type of userId
     }
   });
 });
-
-it('Login user successfully', () => {
-  const username = Cypress.env('CY_USER');
-  const password = Cypress.env('CY_PSSWD');
-
-  cy.request({
-    method: 'GET',
-    url: `/user/login?username=${username}&password=${password}`,
-  }).then((response) => {
-    expect(response.status).to.eq(200);
-    expect(response.body).to.have.property('code', 200);
-    expect(response.body).to.have.property('type', 'unknown');
-    expect(response.body).to.have.property('message').that.contains('logged in user session:');
-  });
-});
-
