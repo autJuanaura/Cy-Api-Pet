@@ -4,7 +4,8 @@
   "description": "Hello, and welcome to my Github page! I created this repo to demonstrate simple examples of API testing using Cypress. These tests are based on the swagger documentation for the demo site called Petstore: https://petstore.swagger.io/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run cypress:run",
+    "cypress:run": "npx cypress run --record --key 034dcc0a-b140-4967-98da-96654d2bac4e --spec \"cypress/e2e/auth-users-tests.cy.js,cypress/e2e/pet-suite.cy.js\""
   },
   "repository": {
     "type": "git",
