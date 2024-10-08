@@ -74,13 +74,21 @@ jobs:
         env:
           CYPRESS_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Run Code Analysis 
-        uses: github/codeql-action/analyze@v2
+      - name: Create CodeQL config file 
+        run: |
+          mkdir -p .github/codeql
+          echo "language: javascript" >> $GITHUB_WORKSPACE/.github/codeql/codeql-config.yml   
+
+      - name: Initialize CodeQL 
+        uses: github/codeql-action/init@v2
         with:
-          languages: 'javascript'
-          queries: 'security-extended'
-          format: 'html'
-          output: 'code-analysis-report.html'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: ./.github/codeql/codeql-config.yml
+
+      - name: Codecov analysis 
+        uses: codecov/codecov-action@v1
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Merge test results into one 
         run: npm run report:merge
