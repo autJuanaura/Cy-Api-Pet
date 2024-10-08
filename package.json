@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run cypress:run",
-    "cypress:run": "npx cypress run --record --key 034dcc0a-b140-4967-98da-96654d2bac4e --spec \"cypress/e2e/auth-users-tests.cy.js,cypress/e2e/pet-suite.cy.js\""
+    "cypress:run": "npx cypress run --record --key 034dcc0a-b140-4967-98da-96654d2bac4e --spec \"cypress/e2e/auth-users-tests.cy.js,cypress/e2e/pet-suite.cy.js\"",
+    "report:merge": "mochawesome-merge cypress/reports/json/*.json > index.json",
+    "report:generate": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
   },
   "repository": {
     "type": "git",
