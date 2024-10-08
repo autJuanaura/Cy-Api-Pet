@@ -1,4 +1,8 @@
 name: Api PET CI
+author:
+  name: Masha Juan 🪽 Contact Me 📲
+  email: juannodecoorp@gmail.com
+  website: https://www.linkedin.com/in/jprofilehome/ 💻
 on:
   workflow_dispatch:
   push:
