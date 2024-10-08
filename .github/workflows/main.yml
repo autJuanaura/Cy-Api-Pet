@@ -1,9 +1,4 @@
-name: Api PET CI
-metadata:
-  author:
-    name: Masha Juan 🪽 Contact Me 📲
-    email: juannodecoorp@gmail.com
-    website: https://www.linkedin.com/in/jprofilehome/ 💻
+name: Api PET CI [Masha Juan 🪽 Contact Me 📲]
 on:
   workflow_dispatch:
   push:
@@ -17,37 +12,37 @@ jobs:
     container:
       image: cypress/browsers:node16.16.0-chrome107-ff107
     steps:
-      - name: Checkout code repository 
+      - name: Checkout code repository
         uses: actions/checkout@v3
-      - name: Install Cypress 
+      - name: Install Cypress
         run: npm install cypress
 
-      - name: Cache Cypress dependencies 
+      - name: Cache Cypress dependencies
         uses: actions/cache@v3
         id: cache-cypress-deps
         with:
           path: ~/.npm
           key: ${{ runner.os }}-cypress-deps-${{ matrix.cypress }}
-      - name: Cache Cypress binary 
+      - name: Cache Cypress binary
         uses: actions/cache@v3
         id: cache-cypress-binary
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-binary-${{ matrix.cypress }}
-      - name: Restore Cypress dependencies 
+      - name: Restore Cypress dependencies
         uses: actions/cache@v3
         id: restore-cypress-deps
         with:
           path: ~/.npm
           key: ${{ runner.os }}-cypress-deps-${{ matrix.cypress }}
-      - name: Restore Cypress binary 
+      - name: Restore Cypress binary
         uses: actions/cache@v3
         id: restore-cypress-binary
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-binary-${{ matrix.cypress }}
 
-      - name: Run Cypress tests with Chrome 
+      - name: Run Cypress tests with Chrome
         uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
@@ -55,7 +50,7 @@ jobs:
         env:
           CYPRESS_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Run Cypress tests with Firefox 
+      - name: Run Cypress tests with Firefox
         uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
@@ -63,7 +58,7 @@ jobs:
         env:
           CYPRESS_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Run Cypress tests in parallel 
+      - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
@@ -71,7 +66,7 @@ jobs:
         env:
           CYPRESS_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Run Cypress dashboard 
+      - name: Run Cypress dashboard
         uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
@@ -79,35 +74,35 @@ jobs:
         env:
           CYPRESS_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Create CodeQL config file 
+      - name: Create CodeQL config file
         run: |
           mkdir -p .github/codeql
-          echo "language: javascript" >> $GITHUB_WORKSPACE/.github/codeql/codeql-config.yml   
+          echo "language: javascript" >> $GITHUB_WORKSPACE/.github/codeql/codeql-config.yml
 
-      - name: Initialize CodeQL 
+      - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config-file: ./.github/codeql/codeql-config.yml
 
-      - name: Codecov analysis 
+      - name: Codecov analysis
         uses: codecov/codecov-action@v1
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Merge test results into one 
+      - name: Merge test results into one
         run: |
           npm install -g mochawesome
           npx mochawesome-merge ./cypress/reports/*.json > report.json
 
-      - name: Generate HTML report 
+      - name: Generate HTML report
         run: |
           npm install -g marge
           npx marge report.json --reportDir public --assetsDir public/assets --reportPageTitle index.html
 
-      - name: Publish report to GitHub Pages 
+      - name: Publish report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public 
+          publish_dir: ./public
