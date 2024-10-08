@@ -92,8 +92,8 @@ jobs:
 
       - name: Merge test results into one 
         run: |
-          npm install -g @cypress/report
-          npx @cypress/report merge
+          npm install -g mochawesome
+          npx mochawesome-merge ./cypress/reports/*.json > report.json
 
       - name: Generate HTML report 
         run: npm run report:generate
@@ -103,4 +103,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public 
