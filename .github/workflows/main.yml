@@ -96,7 +96,9 @@ jobs:
           npx mochawesome-merge ./cypress/reports/*.json > report.json
 
       - name: Generate HTML report 
-        run: npm run report:generate
+        run: |
+          npm install -g marge
+          npx marge report.json --reportDir public --assetsDir public/assets --reportPageTitle index.html
 
       - name: Publish report to GitHub Pages 
         uses: peaceiris/actions-gh-pages@v3
